@@ -12,11 +12,16 @@ jobs:
       - run: echo "Start"
       - run: pwd
       - run: ls -al
-      - run: echo "${{ github.repository }}"
-      - run: echo "${{ github.event.pull_request.number }}"
-      - run: echo "${{ github.event.pull_request.head.ref }}"
+      - run: echo "Repository _ ${{ github.repository }}"
+      - run: echo "PR number _ ${{ github.event.pull_request.number }}"
+      - run: echo "Branch _ ${{ github.event.pull_request.head.ref }}"
   stop-test-environment:
     runs-on: self-hosted
     if: ${{ github.event.action == 'closed' }}
     steps:
       - run: echo "Stop"
+      - run: pwd
+      - run: ls -al
+      - run: echo "Repository _ ${{ github.repository }}"
+      - run: echo "PR number _ ${{ github.event.pull_request.number }}"
+      - run: echo "Branch _ ${{ github.event.pull_request.head.ref }}"
