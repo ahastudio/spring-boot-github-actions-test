@@ -34,4 +34,4 @@ jobs:
                 "branch": "${{ github.event.pull_request.head.ref }}"
               }
             ' \
-            {{ secrets.DEPLOY_TRIGGER_URL }}
+            ${{ secrets.DEPLOY_TRIGGER_URL }}
