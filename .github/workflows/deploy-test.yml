@@ -14,7 +14,7 @@ jobs:
           curl -i -X POST -H "Content-Type: application/json" \
             -d '
               {
-                "action": "start-test-environment",
+                "trigger": "start-test-environment",
                 "repository": "${{ github.repository }}",
                 "pr": "${{ github.event.pull_request.number }}",
                 "branch": "${{ github.event.pull_request.head.ref }}"
@@ -30,7 +30,7 @@ jobs:
           curl -i -X POST -H "Content-Type: application/json" \
             -d '
               {
-                "action": "stop-test-environment",
+                "trigger": "stop-test-environment",
                 "repository": "${{ github.repository }}",
                 "pr": "${{ github.event.pull_request.number }}",
                 "branch": "${{ github.event.pull_request.head.ref }}"
