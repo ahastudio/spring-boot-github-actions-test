@@ -15,6 +15,7 @@ jobs:
       - run: echo "Repository _ ${{ github.repository }}"
       - run: echo "PR number _ ${{ github.event.pull_request.number }}"
       - run: echo "Branch _ ${{ github.event.pull_request.head.ref }}"
+      - run: trigger-test
   stop-test-environment:
     runs-on: self-hosted
     if: ${{ github.event.action == 'closed' }}
@@ -25,3 +26,4 @@ jobs:
       - run: echo "Repository _ ${{ github.repository }}"
       - run: echo "PR number _ ${{ github.event.pull_request.number }}"
       - run: echo "Branch _ ${{ github.event.pull_request.head.ref }}"
+      - run: trigger-test
