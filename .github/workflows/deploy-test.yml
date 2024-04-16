@@ -6,34 +6,17 @@ on:
 
 jobs:
   start-test-environment:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: ${{ github.event.action != 'closed' }}
     steps:
-      - name: Trigger
-        run: |
-          curl -i -X POST -H "Content-Type: application/json" \
-            -d '
-              {
-                "trigger": "start-test-environment",
-                "repository": "${{ github.repository }}",
-                "pr": "${{ github.event.pull_request.number }}",
-                "branch": "${{ github.event.pull_request.head.ref }}"
-              }
-            ' \
-            ${{ secrets.DEPLOY_TRIGGER_URL }}
+      - run: echo "Start"
+      - run: pwd
+      - run: ls -al
+      - run: echo "${{ github.repository }}"
+      - run: echo "${{ github.event.pull_request.number }}"
+      - run: echo "${{ github.event.pull_request.head.ref }}"
   stop-test-environment:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: ${{ github.event.action == 'closed' }}
     steps:
-      - name: Trigger
-        run: |
-          curl -i -X POST -H "Content-Type: application/json" \
-            -d '
-              {
-                "trigger": "stop-test-environment",
-                "repository": "${{ github.repository }}",
-                "pr": "${{ github.event.pull_request.number }}",
-                "branch": "${{ github.event.pull_request.head.ref }}"
-              }
-            ' \
-            ${{ secrets.DEPLOY_TRIGGER_URL }}
+      - run: echo "Stop"
