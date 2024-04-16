@@ -1,0 +1,37 @@
+name: CD
+
+on: [pull_request]
+
+jobs:
+  start-test-environment:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'opened' || github.event.action == 'synchronize' }}
+    steps:
+      - name: Trigger
+        run: |
+          curl -i -X POST -H "Content-Type: application/json" \
+            -d '
+              {
+                "event": "pr-opened",
+                "repository": "${{ github.repository }}",
+                "pr": "${{ github.event.pull_request.number }}",
+                "branch": "${{ github.event.pull_request.head.ref }}"
+              }
+            ' \
+            {{ secrets.DEPLOY_TRIGGER_URL }}
+  stop-test-environment:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'closed' }}
+    steps:
+      - name: Trigger
+        run: |
+          curl -i -X POST -H "Content-Type: application/json" \
+            -d '
+              {
+                "event": "pr-closed",
+                "repository": "${{ github.repository }}",
+                "pr": "${{ github.event.pull_request.number }}",
+                "branch": "${{ github.event.pull_request.head.ref }}"
+              }
+            ' \
+            {{ secrets.DEPLOY_TRIGGER_URL }}
